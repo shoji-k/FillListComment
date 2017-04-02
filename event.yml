@@ -1,0 +1,5 @@
+admin.product.edit.initialize:
+    - [onAdminProductEditInitialize, NORMAL]
+Admin/Product/product.twig:
+    - [onRenderAdminProductProductEditBefore, NORMAL]
+

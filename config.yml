@@ -1,0 +1,6 @@
+name: 一覧コメント補完
+code: FillListComment
+version: 1.0.0
+event: FillListCommentEvent
+service:
+    - FillListCommentServiceProvider
