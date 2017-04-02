@@ -16,7 +16,6 @@ use Silex\ServiceProviderInterface;
 
 class FillListCommentServiceProvider implements ServiceProviderInterface
 {
-
     public function register(BaseApplication $app)
     {
     }
@@ -24,5 +23,4 @@ class FillListCommentServiceProvider implements ServiceProviderInterface
     public function boot(BaseApplication $app)
     {
     }
-
 }

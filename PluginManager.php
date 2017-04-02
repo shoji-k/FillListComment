@@ -69,5 +69,4 @@ class PluginManager extends AbstractPluginManager
     public function update($config, Application $app)
     {
     }
-
 }
