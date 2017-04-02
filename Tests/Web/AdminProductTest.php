@@ -17,7 +17,7 @@ class AdminProductTest extends AbstractAdminWebTestCase
     {
         // 一覧コメントが空の場合、商品説明をコピーする
         $description = 'これは商品説明です';
-        $listComment = '';
+        // $listComment = '';
         $crawler = $this->client->request(
             'POST',
             $this->app->url('admin_product_product_new'), [
