@@ -4,15 +4,14 @@ cache:
   directories:
   - "$HOME/.composer/cache"
 php:
-- 5.6
-- 7.0
-- 7.1
+  - 5.6
+  - 7.0
+  - 7.1
 env:
   global: PLUGIN_CODE=FillListComment
   matrix:
   - ECCUBE_VERSION=3.0.14 DB=mysql USER=root DBNAME=myapp_test DBPASS=' ' DBUSER=root
-  - ECCUBE_VERSION=3.0.14 DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password
-    DBUSER=postgres
+  - ECCUBE_VERSION=3.0.14 DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres
 matrix:
   fast_finish: true
   include: 
@@ -21,39 +20,33 @@ matrix:
   - php: 5.6
     env: ECCUBE_VERSION=3.0.14 DB=mysql USER=root DBNAME=myapp_test DBPASS=' ' DBUSER=root
   - php: 5.6
-    env: ECCUBE_VERSION=3.0.14 DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password
-      DBUSER=postgres
+    env: ECCUBE_VERSION=3.0.14 DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres
   - php: 7.0
     env: ECCUBE_VERSION=3.0.14 DB=mysql USER=root DBNAME=myapp_test DBPASS=' ' DBUSER=root
   - php: 7.0
-    env: ECCUBE_VERSION=3.0.14 DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password
-      DBUSER=postgres
+    env: ECCUBE_VERSION=3.0.14 DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres
   - php: 7.1
     env: ECCUBE_VERSION=3.0.14 DB=mysql USER=root DBNAME=myapp_test DBPASS=' ' DBUSER=root
   - php: 7.1
-    env: ECCUBE_VERSION=3.0.14 DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password
-      DBUSER=postgres
+    env: ECCUBE_VERSION=3.0.14 DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres
 install: 
 before_script:
-- tar cvzf ${HOME}/${PLUGIN_CODE}.tar.gz ./*
-- git clone https://github.com/EC-CUBE/ec-cube.git
-- cd ec-cube
-- sh -c "if [ ! '${ECCUBE_VERSION}' = 'master' ]; then  git checkout -b ${ECCUBE_VERSION}
-  refs/tags/${ECCUBE_VERSION}; fi"
-- composer selfupdate
-- composer install --dev --no-interaction -o
-- sh -c "if [ '$DB' = 'mysql' ]; then sh ./eccube_install.sh mysql none; fi"
-- sh -c "if [ '$DB' = 'pgsql' ]; then sh ./eccube_install.sh pgsql none; fi"
-- php app/console plugin:develop install --path=${HOME}/${PLUGIN_CODE}.tar.gz
-- php app/console plugin:develop enable --code=${PLUGIN_CODE}
+  - tar cvzf ${HOME}/${PLUGIN_CODE}.tar.gz ./*
+  - git clone https://github.com/EC-CUBE/ec-cube.git
+  - cd ec-cube
+  - sh -c "if [ ! '${ECCUBE_VERSION}' = 'master' ]; then git checkout -b ${ECCUBE_VERSION} refs/tags/${ECCUBE_VERSION}; fi"
+  - composer selfupdate
+  - composer install --dev --no-interaction -o
+  - sh -c "if [ '$DB' = 'mysql' ]; then sh ./eccube_install.sh mysql none; fi"
+  - sh -c "if [ '$DB' = 'pgsql' ]; then sh ./eccube_install.sh pgsql none; fi"
+  - php app/console plugin:develop install --path=${HOME}/${PLUGIN_CODE}.tar.gz
+  - php app/console plugin:develop enable --code=${PLUGIN_CODE}
 script:
-- phpunit app/Plugin/${PLUGIN_CODE}/Tests
-- if [[ $TRAVIS_PHP_VERSION =~ ^[7] ]]; then ./vendor/bin/phpunit -c app/Plugin/${PLUGIN_CODE}/phpunit.xml.dist
-  --coverage-clover=coverage.clover ; fi
+  - phpunit app/Plugin/${PLUGIN_CODE}/Tests
+  - if [[ $TRAVIS_PHP_VERSION =~ ^[7] ]]; then ./vendor/bin/phpunit -c app/Plugin/${PLUGIN_CODE}/phpunit.xml.dist --coverage-clover=coverage.clover ; fi
 after_script: 
 after_success:
-- if [[ $TRAVIS_PHP_VERSION =~ ^[7] ]]; then php vendor/bin/coveralls -v -x coverage.clover
-  ; fi
+  - if [[ $TRAVIS_PHP_VERSION =~ ^[7] ]]; then php vendor/bin/coveralls -v -x coverage.clover ; fi
 notifications:
   slack:
     secure: Mf7Y0aD2/at6qJSuRwpkPI26ercCoQzzwknqCVrhbBEvc5R6mMYhFJc8ja6F/kqI3Zg64q8lqeLThrtxM8oPstNuEvGNWmNxYISngJG4gF4vljOCyZHwqKRL71XVB+1s85dSJZDj3broJhWV2pUYTTWtsgZHkfB4ixc/WKhSoRes/y+9PWOF53hlfLWapIbLM/5YVHfPELtYBeD7mNrWm/xlPB4mPkeKoSVafnSFl+bJ2rGX+gH84UGr9OnxmGFaByejQt5gIAEx+WJHpDSIHggRBUDMytccti8p3qqxWh+mdPpJ6jjIhcctTR1eaXv1U4DrbhqOqMTmN99/V0V69ZT0CToFkAzploTf4Pp7S2y95kjBxeMPQDg7xWvpHA0v5VW1YvC9dTuw8DnKXC04z98CCPMv6Yli7gwudscAJC4MgbulSeCmkWEYrWiu/ptJoIVAgGEpQ8kKLf41YJyJiNaabyTtMERQbQu/L2W+14O3CVetlbfpDAPavGX2lMrUhMML4M1eovGWKQ4PdCeKZHStYyPVQw5wAzOmgmI//JROqumoi6d+3UFl3wWFEWk+lHy2hsA/1OAoOpTeONiwep9tiVXno+JmxUdfLI8+DP+dw1+nZeZr23I68NZDKs9HhmS4hWBkGAD+X734n+Rz6Iz0oPtaEbpfbL3IVZXPdkM=
