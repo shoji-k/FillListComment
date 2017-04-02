@@ -56,6 +56,6 @@ class FillListCommentEvent
             '一覧コメントを追加&nbsp;<small>空で保存すると商品説明をコピーします</small>',
             $source
         );
-        $source = $event->setSource($source);
+        $event->setSource($source);
     }
 }
