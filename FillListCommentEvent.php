@@ -13,7 +13,6 @@ namespace Plugin\FillListComment;
 use Eccube\Application;
 use Eccube\Event\TemplateEvent;
 use Eccube\Event\EventArgs;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 
 class FillListCommentEvent
 {
