@@ -1,4 +1,5 @@
 <?php
+
 namespace Eccube\Tests\Web;
 
 use Eccube\Tests\Web\Admin\AbstractAdminWebTestCase;
@@ -11,7 +12,7 @@ class AdminProductTest extends AbstractAdminWebTestCase
     }
 
     /**
-     * onAdminProductEditInitialize用
+     * onAdminProductEditInitialize用.
      */
     public function testSaveAdminProduct()
     {
@@ -24,7 +25,7 @@ class AdminProductTest extends AbstractAdminWebTestCase
                 'admin_product' => [
                     'description_detail' => $description,
                     'description_list' => $listComment,
-                ]
+                ],
             ]
         );
         $form = $crawler->selectButton('商品を登録')->form();
@@ -41,7 +42,7 @@ class AdminProductTest extends AbstractAdminWebTestCase
                 'admin_product' => [
                     'description_detail' => $description,
                     'description_list' => $listComment,
-                ]
+                ],
             ]
         );
         $form = $crawler->selectButton('商品を登録')->form();
@@ -51,7 +52,7 @@ class AdminProductTest extends AbstractAdminWebTestCase
     }
 
     /**
-     * onRenderAdminProductProductEditBefore用
+     * onRenderAdminProductProductEditBefore用.
      */
     public function testCommentAdminProductNew()
     {
@@ -66,7 +67,7 @@ class AdminProductTest extends AbstractAdminWebTestCase
     }
 
     /**
-     * onRenderAdminProductProductEditBefore用
+     * onRenderAdminProductProductEditBefore用.
      */
     public function testCommentAdminProductEdit()
     {

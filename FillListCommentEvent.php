@@ -17,12 +17,12 @@ use Eccube\Event\EventArgs;
 class FillListCommentEvent
 {
     /**
-     * @var \Eccube\Application $app
+     * @var \Eccube\Application
      **/
     private $app;
 
     /**
-     * @var \Eccube\Application $app
+     * @var \Eccube\Application
      **/
     public function __construct(Application $app)
     {
@@ -30,7 +30,7 @@ class FillListCommentEvent
     }
 
     /**
-     * @var \Eccube\Event\EventArgs $event
+     * @var \Eccube\Event\EventArgs
      **/
     public function onAdminProductEditInitialize(EventArgs $event)
     {
